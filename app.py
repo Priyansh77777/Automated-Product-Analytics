@@ -9,7 +9,7 @@ from langchain_community.utilities import SQLDatabase
 from langchain_community.agent_toolkits import SQLDatabaseToolkit, create_sql_agent
 
 # 1. Page Configuration & Gemini-Style CSS
-st.set_page_config(page_title="AI Data Copilot", page_icon="✨", layout="wide")
+st.set_page_config(page_title="AI Data Copilot", layout="wide")
 
 st.markdown("""
     <style>
@@ -114,7 +114,7 @@ with st.sidebar:
                 st.rerun()
                 
     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
-    st.markdown("### 🗂️ Data Context")
+    st.markdown("### Data Context")
     
     # 4. File Uploader
     uploaded_files = st.file_uploader("Upload CSV", type=["csv"], accept_multiple_files=True, label_visibility="collapsed")
@@ -146,7 +146,7 @@ with st.sidebar:
             label_visibility="collapsed"
         )
         
-        with st.expander("🗑️ Delete Datasets"):
+        with st.expander("Delete Datasets"):
             for t in active_tables:
                 col1, col2 = st.columns([3, 1])
                 col1.caption(t)
@@ -160,8 +160,8 @@ with st.sidebar:
                     st.rerun()
 
 # 3. Main Dashboard Layout
-st.title("✨ AI Data Copilot")
-st.markdown("**Autonomous SQL Agent** • Powered by Llama 3 & LangGraph")
+st.title("AI Data Copilot")
+st.markdown("**Autonomous SQL Agent** • Powered by LangChain")
 st.divider()
 
 def get_agent_executor(tables_to_include):
