@@ -172,20 +172,20 @@ def get_agent_executor(tables_to_include):
 
 # 4. Zero-State Onboarding
 if len(st.session_state.messages) == 0:
-    st.markdown("### 👋 Welcome back.")
+    st.markdown("###  Welcome back.")
     st.caption("Select a suggested query based on your active data context, or ask your own.")
     st.write("")
     if selected_tables:
         col1, col2, col3 = st.columns(3)
         t1 = selected_tables[0]
         with col1:
-            if st.button(f"🔍 **Explore {t1}**\n\nHow many total rows are in the {t1} table?", use_container_width=True):
+            if st.button(f" **Explore {t1}**\n\nHow many total rows are in the {t1} table?", use_container_width=True):
                 st.session_state.current_chat_title = f"Explore {t1}"
                 st.session_state.messages.append({"role": "user", "content": f"How many total rows are in the {t1} table?"})
                 st.session_state.chat_history[st.session_state.current_chat_title] = {"messages": st.session_state.messages.copy(), "tables": list(selected_tables)}
                 st.rerun()
         with col2:
-            if st.button(f"📊 **Analyze {t1}**\n\nWhat are the top 3 most common values in the {t1} table?", use_container_width=True):
+            if st.button(f" **Analyze {t1}**\n\nWhat are the top 3 most common values in the {t1} table?", use_container_width=True):
                 st.session_state.current_chat_title = f"Analyze {t1}"
                 st.session_state.messages.append({"role": "user", "content": f"What are the top 3 most common values in the {t1} table?"})
                 st.session_state.chat_history[st.session_state.current_chat_title] = {"messages": st.session_state.messages.copy(), "tables": list(selected_tables)}
@@ -193,20 +193,20 @@ if len(st.session_state.messages) == 0:
         if len(selected_tables) > 1:
             t2 = selected_tables[1]
             with col3:
-                if st.button(f"🔗 **Cross-check {t2}**\n\nShow me a brief summary of the {t2} table.", use_container_width=True):
+                if st.button(f" **Cross-check {t2}**\n\nShow me a brief summary of the {t2} table.", use_container_width=True):
                     st.session_state.current_chat_title = f"Summary of {t2}"
                     st.session_state.messages.append({"role": "user", "content": f"Show me a brief summary of the {t2} table."})
                     st.session_state.chat_history[st.session_state.current_chat_title] = {"messages": st.session_state.messages.copy(), "tables": list(selected_tables)}
                     st.rerun()
         else:
             with col3:
-                if st.button("💡 **General Quality**\n\nAre there any missing or null values in the database?", use_container_width=True):
+                if st.button(" **General Quality**\n\nAre there any missing or null values in the database?", use_container_width=True):
                     st.session_state.current_chat_title = "Data Quality Check"
                     st.session_state.messages.append({"role": "user", "content": "Are there any missing or null values in the database?"})
                     st.session_state.chat_history[st.session_state.current_chat_title] = {"messages": st.session_state.messages.copy(), "tables": list(selected_tables)}
                     st.rerun()
     else:
-        st.info("👈 Please upload and select a CSV dataset in the sidebar to get started.")
+        st.info("Please upload and select a CSV dataset in the sidebar to get started.")
 
 # Render history
 for msg in st.session_state.messages:
@@ -214,7 +214,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
         if "latency" in msg: st.caption(f"⏱️ **Execution Latency:** {msg['latency']:.2f}s")
         if "debug_steps" in msg and msg["debug_steps"]:
-            with st.expander("🔍 Inspect Agent Thought Process & SQL"):
+            with st.expander("Inspect Agent Thought Process & SQL"):
                 st.code(msg["debug_steps"], language="sql")
 
 # 5. Query Execution Loop
@@ -254,9 +254,9 @@ if len(st.session_state.messages) > 0 and st.session_state.messages[-1]["role"] 
                         debug_log += f"-- Action: {action.tool}\n-- Query Compiled:\n{action.tool_input}\n-- Database Output:\n{observation}\n\n"
 
                 st.markdown(answer)
-                st.caption(f"⏱️ **Execution Latency:** {latency:.2f}s")
+                st.caption(f" **Execution Latency:** {latency:.2f}s")
                 if debug_log:
-                    with st.expander("🔍 Inspect Agent Thought Process & SQL"): st.code(debug_log, language="sql")
+                    with st.expander("Inspect Agent Thought Process & SQL"): st.code(debug_log, language="sql")
 
                 st.session_state.messages.append({
                     "role": "assistant", "content": answer, "latency": latency, "debug_steps": debug_log
